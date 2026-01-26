@@ -1,5 +1,5 @@
 
-
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import RecipeList from './components/RecipeList';
 import AddRecipeForm from './components/AddRecipeForm';
 import DeleteRecipeButton from './components/DeleteRecipeButton';
@@ -10,7 +10,8 @@ import './App.css'
 function App() {
   
   return (
-    <>
+
+    <Router> 
     <h1>Recipe App</h1>
       <AddRecipeForm />
       <RecipeList />
@@ -18,8 +19,22 @@ function App() {
       <RecipeDetails/>
       <EditRecipeForm/>
     
-      
-    </>
+       <Routes>
+        {/* Home page: add recipes + list */}
+        <Route
+          path="/"
+          element={
+            <>
+              <AddRecipeForm />
+              <RecipeList />
+            </>
+          }
+        />
+
+        {/* Recipe details page: view, edit, delete */}
+        <Route path="/recipes/:id" element={<RecipeDetailsPage />} />
+      </Routes>
+    </Router>
   )
 }
 
