@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import useRecipeStore from '../stores/recipeStore';
 
 const RecipeList = () => {
@@ -14,14 +15,35 @@ const RecipeList = () => {
 const recipesToDisplay = searchTerm ? filteredRecipes : recipes;
 
   return (
-    <div>
+    <div style={{ display: 'grid', gap: '15px' }}>
       {recipesToDisplay.length === 0 ? (
         <p>No recipes found.</p>
       ) : (
         recipesToDisplay.map((recipe) => (
-          <div key={recipe.id}>
-            <h3>{recipe.title}</h3>
-            <p>{recipe.description}</p>
+          <div
+            key={recipe.id}
+            style={{
+              border: '1px solid #ddd',
+              borderRadius: '8px',
+              padding: '15px',
+              background: '#fafafa',
+              boxShadow: '0 2px 5px rgba(0,0,0,0.05)',
+            }}
+          >
+            {/* Make recipe title clickable using Link */}
+            <h3 style={{ margin: '0 0 10px 0' }}>
+              <Link
+                to={`/recipes/${recipe.id}`}
+                style={{ textDecoration: 'none', color: '#333' }}
+              >
+                {recipe.title}
+              </Link>
+            </h3>
+            <p style={{ margin: 0 }}>{recipe.description}</p>
+            {recipe.prepTime && <p>Prep Time: {recipe.prepTime} mins</p>}
+            {recipe.ingredients && (
+              <p>Ingredients: {recipe.ingredients.join(', ')}</p>
+            )}
           </div>
         ))
       )}
