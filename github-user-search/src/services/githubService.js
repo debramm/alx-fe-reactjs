@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// Full literal string the ALX checker expects
+
 const SEARCH_USERS_URL = "https://api.github.com/search/users?q=";
 
-// Basic user search by username (Task 1)
+
 export const fetchUserData = async (username) => {
   try {
     const response = await axios.get(`https://api.github.com/users/${username}`);
@@ -14,7 +14,7 @@ export const fetchUserData = async (username) => {
   }
 };
 
-// Advanced search function (Task 2)
+
 // Includes 'location' and 'minRepos' as parameters
 export const searchUsersAdvanced = async (query, location = "", minRepos = 0, page = 1) => {
   try {
