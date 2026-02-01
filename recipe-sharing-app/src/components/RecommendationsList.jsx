@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import useRecipeStore from '../stores/recipeStore';
+import useRecipeStore from '../stores/recipeStore.js';
 
 const RecommendationsList = () => {
   const recommendations = useRecipeStore((state) => state.recommendations);
