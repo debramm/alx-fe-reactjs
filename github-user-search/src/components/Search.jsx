@@ -1,8 +1,5 @@
 import { useState } from "react";
-import {
-  searchUsersAdvanced,
-  fetchUserDetails,
-} from "../services/githubService.js";
+import { searchUsersAdvanced, fetchUserDetails } from "../services/githubService.js";
 
 function Search() {
   const [query, setQuery] = useState("");
@@ -15,25 +12,23 @@ function Search() {
 
   const handleSearch = async (e) => {
     e.preventDefault();
+    if (!query) return;
+
     setLoading(true);
     setError(false);
     setUsers([]);
     setPage(1);
 
     try {
-      const data = await searchUsersAdvanced(
-        query,
-        location,
-        minRepos,
-        1
-      );
+      const data = await searchUsersAdvanced(query, location, Number(minRepos), 1);
 
       const detailedUsers = await Promise.all(
-        data.items.map((user) => fetchUserDetails(user.login))
+        data.map((user) => fetchUserDetails(user.login))
       );
 
       setUsers(detailedUsers);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError(true);
     } finally {
       setLoading(false);
@@ -45,20 +40,16 @@ function Search() {
     setLoading(true);
 
     try {
-      const data = await searchUsersAdvanced(
-        query,
-        location,
-        minRepos,
-        nextPage
-      );
+      const data = await searchUsersAdvanced(query, location, Number(minRepos), nextPage);
 
       const detailedUsers = await Promise.all(
-        data.items.map((user) => fetchUserDetails(user.login))
+        data.map((user) => fetchUserDetails(user.login))
       );
 
       setUsers([...users, ...detailedUsers]);
       setPage(nextPage);
-    } catch {
+    } catch (err) {
+      console.error(err);
       setError(true);
     } finally {
       setLoading(false);
@@ -118,9 +109,7 @@ function Search() {
               className="w-16 rounded-full"
             />
             <div>
-              <h2 className="font-bold">
-                {user.name || user.login}
-              </h2>
+              <h2 className="font-bold">{user.name || user.login}</h2>
               <p>Location: {user.location || "N/A"}</p>
               <p>Repos: {user.public_repos}</p>
               <a
