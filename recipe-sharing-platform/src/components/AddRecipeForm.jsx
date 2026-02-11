@@ -6,10 +6,8 @@ function AddRecipeForm() {
   const [instructions, setInstructions] = useState("");
   const [errors, setErrors] = useState({});
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-
-    // Simple validation
+  // ✅ Extract validation logic into a separate function
+  const validate = () => {
     const newErrors = {};
     if (!title.trim()) newErrors.title = "Title is required";
     if (!ingredients.trim() || ingredients.split("\n").length < 2)
@@ -17,14 +15,18 @@ function AddRecipeForm() {
     if (!instructions.trim() || instructions.split("\n").length < 2)
       newErrors.instructions = "At least two steps are required";
 
-    setErrors(newErrors);
+    return newErrors;
+  };
 
-    if (Object.keys(newErrors).length === 0) {
-      // Normally, you'd send data to an API or update state
+  const handleSubmit = (e) => {
+    e.preventDefault();
+
+    const validationErrors = validate(); // call validate
+    setErrors(validationErrors);
+
+    if (Object.keys(validationErrors).length === 0) {
       console.log("Recipe submitted:", { title, ingredients, instructions });
       alert("Recipe submitted successfully!");
-
-      // Clear form
       setTitle("");
       setIngredients("");
       setInstructions("");
