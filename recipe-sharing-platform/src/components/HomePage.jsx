@@ -1,6 +1,14 @@
+import { useState, useEffect } from "react";
 import recipesData from "../data.json";
 
 function HomePage() {
+  const [recipes, setRecipes] = useState([]);
+
+  useEffect(() => {
+    // Load mock data into state
+    setRecipes(recipesData);
+  }, []);
+
   return (
     <div className="min-h-screen bg-gray-100 p-6">
       <h1 className="text-3xl font-bold text-center mb-8">
@@ -8,11 +16,11 @@ function HomePage() {
       </h1>
 
       <div className="grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {recipesData.map((recipe) => (
+        {recipes.map((recipe) => (
           <div
             key={recipe.id}
-            className="bg-white rounded-xl shadow-md overflow-hidden 
-                       hover:shadow-xl hover:scale-105 
+            className="bg-white rounded-xl shadow-md overflow-hidden
+                       hover:shadow-xl hover:scale-105
                        transition duration-300"
           >
             <img
