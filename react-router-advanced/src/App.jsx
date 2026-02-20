@@ -10,7 +10,7 @@ import UserPost from "./pages/UserPost.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
 function App() {
-  const isAuthenticated = false; // toggle to true to simulate login
+ 
 
   return (
     <BrowserRouter>
@@ -22,7 +22,7 @@ function App() {
         <Route
           path="/profile/*"
           element={
-            <ProtectedRoute isAuthenticated={isAuthenticated}>
+            <ProtectedRoute>
               <Profile />
             </ProtectedRoute>
           }
