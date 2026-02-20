@@ -2,9 +2,10 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Home from "./pages/Home.jsx";
 import Login from "./pages/Login.jsx";
-import Profile from "./pages/Profile.jsx";
-import ProfileDetails from "./pages/ProfileDetails.jsx";
-import ProfileSettings from "./pages/ProfileSettings.jsx";
+import Profile from "./components/Profile.jsx";
+import ProfileDetails from "./components/ProfileDetails.jsx";
+import ProfileSettings from "./components/ProfileSettings.jsx";
+import BlogPost from "./components/BlogPost";
 import UserPost from "./pages/UserPost.jsx";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 
@@ -16,7 +17,7 @@ function App() {
       <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/login" element={<Login />} />
-
+     <Route path="/blog/:id" element={<BlogPost />} />
         {/* Protected Profile Route */}
         <Route
           path="/profile/*"
