@@ -8,7 +8,10 @@ const Profile = () => {
         <Link to="details">Details</Link> |{" "}
         <Link to="settings">Settings</Link>
       </nav>
-      <Outlet /> {/* Nested routes render here */}
+      <Routes>
+        <Route path="details" element={<ProfileDetails />} />
+        <Route path="settings" element={<ProfileSettings />} />
+      </Routes>
     </div>
   );
 };
